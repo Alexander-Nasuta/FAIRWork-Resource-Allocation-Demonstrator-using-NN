@@ -1,0 +1,22 @@
+from __future__ import absolute_import
+
+# flake8: noqa
+
+# import apis into api package
+from swagger_client.api.admin_controller_api import AdminControllerApi
+from swagger_client.api.authorization_controller_api import AuthorizationControllerApi
+from swagger_client.api.baseline_controller_api import BaselineControllerApi
+from swagger_client.api.breakdown_controller_api import BreakdownControllerApi
+from swagger_client.api.converter_controller_api import ConverterControllerApi
+from swagger_client.api.data_controller_api import DataControllerApi
+from swagger_client.api.exchange_controller_api import ExchangeControllerApi
+from swagger_client.api.hash_controller_api import HashControllerApi
+from swagger_client.api.ifd_controller_api import IFDControllerApi
+from swagger_client.api.notification_controller_api import NotificationControllerApi
+from swagger_client.api.organisation_controller_api import OrganisationControllerApi
+from swagger_client.api.product_controller_api import ProductControllerApi
+from swagger_client.api.project_folder_controller_api import ProjectFolderControllerApi
+from swagger_client.api.sub_domain_controller_api import SubDomainControllerApi
+from swagger_client.api.template_folder_controller_api import TemplateFolderControllerApi
+from swagger_client.api.token_controller_api import TokenControllerApi
+from swagger_client.api.update_controller_api import UpdateControllerApi
