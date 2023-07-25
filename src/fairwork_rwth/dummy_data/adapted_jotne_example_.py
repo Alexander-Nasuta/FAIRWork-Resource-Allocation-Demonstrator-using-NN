@@ -1,12 +1,18 @@
+import json
+import pprint
+import random
 import uuid
+import requests
+import urllib
 
 from typing import List
 
 from fairwork_rwth.utils.logger import log
 
-from fairwork_rwth.knowledgebase.auth_controller import auth_context
+from fairwork_rwth.knowledgebase.auth_controller import auth_context, credentials_dict
+from fairwork_rwth.knowledgebase.knowledga_base_config import config_dict
 from swagger_client import AdminControllerApi, ProjectInfo, SystemProjectInfo, BreakdownControllerApi, BreakdownInfo, \
-    BreakdownElementInfo, BreakdownElementSearchResultInfo
+    BreakdownElementInfo, BreakdownElementSearchResultInfo, BreakdownElementInfoWrapper, IFDControllerApi, StringResult
 from swagger_client.rest import ApiException
 
 if __name__ == '__main__':
@@ -14,6 +20,7 @@ if __name__ == '__main__':
 
     adm_controller = AdminControllerApi()
     bkd_controller = BreakdownControllerApi()
+    idf_controller = IFDControllerApi()
 
     ##################### Create new project ######################
     # create new project
@@ -48,6 +55,7 @@ if __name__ == '__main__':
     #####################  root_bd element information ######################
 
     model = "Palfinger_Crane_Assembly"  # the project name
+
     repository = "TruePLMprojectsRep"
 
     log.info(f"fetching root node for project '{model}'")
@@ -120,6 +128,159 @@ if __name__ == '__main__':
     )
     log.info(f"performing advanced search results: {[res for res in adv_search_res]}")
 
+    #####################  Deleting Break down element ######################
+
+    for search_entry in q_search_res_list:
+        node_id = search_entry.bkdn_elem_info.instance_id
+        if node_id == elem_info.instance_id:
+            continue
+        log.info(f"deleting elem with id: {node_id}")
+        del_res = DeleteNodeResponse = bkd_controller.delete_node_using_delete(
+            model=model,
+            node=node_id,
+            repository=repository,
+            token=auth_context.get_token()
+        )
+
     #####################  Updating breakdown element Property information  ######################
 
+    """
+    
+    print(elem_info.date_created)
+    upload_prop_data = {
+        'act_timestamp': '',
+        'props': [
+            'urn:rdl:Palfinger_Crane_Assembly:Manufacturer',
+        ],
+        'ptypes': [
+            'string',
+            #'N',
+            #'string'
+        ],
+        'units': [
+            '',
+        ],
+        'vals': [
+            'ABC',
+        ]
+    }
 
+    bkd_elem_info_wrapper: BreakdownElementInfoWrapper = bkd_controller.update_prop_using_post(
+        node=elem_info.instance_id,
+        model=model,
+        repository=repository,
+        token=auth_context.get_token(),
+        **upload_prop_data
+    )
+    
+    """
+
+    #####################  Uploading aggr data  ######################
+
+    log.info("uploading json data")
+
+    # Data to be written
+    # IT NEEDS TO BE AN ARRAY. "normal" object-style JSON does not work. Big uff.
+    j_data = [{
+        "foo": "some string",
+        "bar": 1337
+    }]
+
+    # Serializing json
+    json_object = json.dumps(j_data, indent=4)
+
+    # Writing to sample.json
+    with open("./resources/sample.json", "w") as outfile:
+        outfile.write(json_object)
+
+    with open('./resources/sample.json', 'r') as f:
+        r_json = json.load(f)
+        log.info(f"dummy json object: {pprint.pformat(r_json)}")
+
+    json_prop_name = f"some_json"
+
+    prn_urn = "urn:plcs:rdl:TruePLM:ComplexDataType"
+    example_url = f"http://" \
+                  f"172.31.10.11:8080/" \
+                  f"EDMtruePLM/" \
+                  f"api/ifd_concept/class/" \
+                  f"TruePLMprojectsRep/Palfinger_Crane_Assembly_RDL/" \
+                  f"urn:rdl:Palfinger_Crane_Assembly:postman1/" \
+                  f"urn:plcs:rdl:TruePLM:ComplexDataType/" \
+                  f"F5GTTNR6F5BKAOTYDE"
+
+    urn_without_prefix = f"code_{uuid.uuid4()}"
+    urn = f"urn:rdl:Palfinger_Crane_Assembly:{urn_without_prefix}"
+    url = f"http://" \
+          f"{credentials_dict['server']}:{credentials_dict['port']}/" \
+          f"{config_dict['project_prefix']}/" \
+          f"api/ifd_concept/class/" \
+          f"{repository}/{model}_RDL/" \
+          f"{urn}/" \
+          f"{prn_urn}/" \
+          f"{auth_context.get_token()}"
+
+    log.info(f"creating aggregate struct. urn: {urn}")
+    log.info(f"req-url: {url}")
+    res = requests.post(url=url)
+    # res = idf_controller.add_class_using_post(**args)
+    log.info(f"result: {res}, text: {res.text}")
+
+    urn = f"urn:rdl:Palfinger_Crane_Assembly:prop_for_agg_scruct_{urn_without_prefix}"
+    log.info(f"creating bkd elem prop. urn: ")
+
+    prop_url_1 = f"" \
+                 f"http://172.31.10.11:8080/" \
+                 f"EDMtruePLM/" \
+                 f"api/adm_user/prop_info/" \
+                 f"TruePLMprojectsRep/" \
+                 f"Palfinger_Crane_Assembly/" \
+                 f"propUi3/" \
+                 f"{auth_context.get_token()}?_=1689845726919"
+
+    log.info(f"creating breakdown property. urn: {urn}")
+    log.info(f"req-url-1: {prop_url_1}")
+    res = requests.get(url=prop_url_1)
+    log.info(f"result: {res}, text: {res.text}")
+
+    prop_url_2 = f"http://" \
+                 f"172.31.10.11:8080/" \
+                 f"EDMtruePLM/" \
+                 f"api/ifd_concept/prop/" \
+                 f"TruePLMprojectsRep/" \
+                 f"Palfinger_Crane_Assembly_RDL/" \
+                 f"urn:rdl:Palfinger_Crane_Assembly:propUi1/" \
+                 f"F5GTTNR6F5BKAOTYDE"
+
+    log.info(f"creating breakdown property. urn: {urn}")
+    log.info(f"req-url-2: {prop_url_2}")
+    res = requests.post(url=prop_url_2)
+    log.info(f"result: {res}, text: {res.text}")
+
+    prop_url_3 = f"http://" \
+                 f"172.31.10.11:8080/" \
+                 f"EDMtruePLM/" \
+                 f"api/ifd_concept/prop/" \
+                 f"TruePLMprojectsRep/" \
+                 f"Palfinger_Crane_Assembly_RDL/" \
+                 f"urn:rdl:Palfinger_Crane_Assembly:propUi1/" \
+                 f"F5GTTNR6F5BKAOTYDE"
+
+    log.info(f"creating breakdown property. urn: {urn}")
+    log.info(f"req-url-3: {prop_url_3}")
+    res = requests.post(url=prop_url_3)
+    log.info(f"result: {res}, text: {res.text}")
+
+    # log.info("uploading json file...")
+    args = {
+        "file": './resources/sample.json',
+        "model": model,
+        "node": elem_info.instance_id,
+        "prop": f"FooBarJSONCode",
+        "repository": repository,
+        "token": auth_context.get_token()
+    }
+    # log.info(pprint.pformat(args))
+
+    # res = bkd_controller.append_aggr_prop_json_using_post(**args)
+    # log.info(f"res: {res}")

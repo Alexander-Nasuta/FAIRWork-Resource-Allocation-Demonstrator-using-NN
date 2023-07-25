@@ -2,7 +2,8 @@ resources/knowledge_base_config.yaml
 resources/knowledge_base_credentials.yaml
 resources/swagger_file
 resources/swagger_file/*
-
+resources/training-data
+resources/training-data/*
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template

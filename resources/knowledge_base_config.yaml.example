@@ -4,5 +4,6 @@ knowledgebase:
   port: 1234
   swagger_route: '/EDMtruePLM/v2/api-docs'
   swagger_ui: '/EDMtruePLM/swagger.html'
+  project_prefix: 'EDMtruePLM'
 
 

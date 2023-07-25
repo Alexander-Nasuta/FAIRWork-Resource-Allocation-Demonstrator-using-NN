@@ -19,7 +19,7 @@ except FileNotFoundError:
     log.error(f"could not find file {credentials_file}. "
               f"make sure your working directory corresponds to the root of the project."
               f"make sure you created the '{credentials_file}' "
-              f"based on the structure of 'knowledge_base_config.yaml.example'.")
+              f"based on the structure of 'knowledge_base_credentials.yaml.example'.")
 
 log.info("file successfully parsed")
 log.info(f"config: \n{pprint.pformat({k:v if k != '_pass' else '*************'  for k,v in credentials_dict.items()})}")
@@ -50,4 +50,4 @@ class AuthContext:
 auth_context = AuthContext(credentials=credentials_dict)
 
 if __name__ == '__main__':
-    print("lel")
+    pass
