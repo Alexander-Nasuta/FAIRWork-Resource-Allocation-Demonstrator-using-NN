@@ -220,14 +220,14 @@ if __name__ == '__main__':
           f"{prn_urn}/" \
           f"{auth_context.get_token()}"
 
-    log.info(f"creating aggregate struct. urn: {urn}")
-    log.info(f"req-url: {url}")
-    res = requests.post(url=url)
+    # log.info(f"creating aggregate struct. urn: {urn}")
+    # log.info(f"req-url: {url}")
+    # res = requests.post(url=url)
     # res = idf_controller.add_class_using_post(**args)
-    log.info(f"result: {res}, text: {res.text}")
+    # log.info(f"result: {res}, text: {res.text}")
 
-    urn = f"urn:rdl:Palfinger_Crane_Assembly:prop_for_agg_scruct_{urn_without_prefix}"
-    log.info(f"creating bkd elem prop. urn: ")
+    # urn = f"urn:rdl:Palfinger_Crane_Assembly:prop_for_agg_scruct_{urn_without_prefix}"
+    # log.info(f"creating bkd elem prop. urn: ")
 
     prop_url_1 = f"" \
                  f"http://172.31.10.11:8080/" \
@@ -238,10 +238,10 @@ if __name__ == '__main__':
                  f"propUi3/" \
                  f"{auth_context.get_token()}?_=1689845726919"
 
-    log.info(f"creating breakdown property. urn: {urn}")
-    log.info(f"req-url-1: {prop_url_1}")
-    res = requests.get(url=prop_url_1)
-    log.info(f"result: {res}, text: {res.text}")
+    # log.info(f"creating breakdown property. urn: {urn}")
+    # log.info(f"req-url-1: {prop_url_1}")
+    # res = requests.get(url=prop_url_1)
+    # log.info(f"result: {res}, text: {res.text}")
 
     prop_url_2 = f"http://" \
                  f"172.31.10.11:8080/" \
@@ -252,10 +252,10 @@ if __name__ == '__main__':
                  f"urn:rdl:Palfinger_Crane_Assembly:propUi1/" \
                  f"F5GTTNR6F5BKAOTYDE"
 
-    log.info(f"creating breakdown property. urn: {urn}")
-    log.info(f"req-url-2: {prop_url_2}")
-    res = requests.post(url=prop_url_2)
-    log.info(f"result: {res}, text: {res.text}")
+    # log.info(f"creating breakdown property. urn: {urn}")
+    # log.info(f"req-url-2: {prop_url_2}")
+    # res = requests.post(url=prop_url_2)
+    # log.info(f"result: {res}, text: {res.text}")
 
     prop_url_3 = f"http://" \
                  f"172.31.10.11:8080/" \
@@ -268,8 +268,8 @@ if __name__ == '__main__':
 
     log.info(f"creating breakdown property. urn: {urn}")
     log.info(f"req-url-3: {prop_url_3}")
-    res = requests.post(url=prop_url_3)
-    log.info(f"result: {res}, text: {res.text}")
+    # res = requests.post(url=prop_url_3)
+    # log.info(f"result: {res}, text: {res.text}")
 
     # log.info("uploading json file...")
     args = {
