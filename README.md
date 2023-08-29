@@ -1,4 +1,5 @@
 # FAIRWork-AI-Service: Resource Allocation using Neural Networks
+
 This repository contains a neural network for resource allocation. 
 The neural network is trained on historic data and can be queried for predictions/allocations. 
 The provided model in this repository is trained on generated dummy data and does not contain any data from the production site.
