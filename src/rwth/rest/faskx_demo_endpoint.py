@@ -1,7 +1,8 @@
-import random
+import os
 
 import pandas as pd
 import numpy as np
+import pathlib as pl
 
 from rwth.demonstrator_ml.demonstrator_nn_v01 import processed_prediction
 from rwth.utils.logger import log
@@ -69,5 +70,8 @@ def main() -> None:
 
 
 if __name__ == '__main__':
+    # change working directory to the root of the project
+    os.chdir(pl.Path(__file__).parent.parent.parent.parent)
+    log.info(f"working directory: {os.getcwd()}")
     # print([random.random() for _ in range(159)])
     main()

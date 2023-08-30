@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "FAIRWork-Resource-Allocation-Demonstrator-using-NN"
+version = "0.0.1"
+description = "A demo service for resource allocation using neural networks"
+readme = "README.md"
+authors = [{ name = "Alexander Nasuta", email = "alexander.nasuta@ima.rwth-aachen.de" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+
+dependencies = [
+    "rich",
+    "torch",
+    "numpy",
+    "pandas",
+    "flask-restx",
+    "requests",
+]
+requires-python = ">=3.9"
+
