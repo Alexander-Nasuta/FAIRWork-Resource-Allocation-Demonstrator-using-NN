@@ -3,7 +3,7 @@ from typing import Dict
 import yaml
 import pprint
 
-from fairwork_rwth.utils.logger import log
+from rwth.utils.logger import log
 
 log.info("setting up knowledge base...")
 

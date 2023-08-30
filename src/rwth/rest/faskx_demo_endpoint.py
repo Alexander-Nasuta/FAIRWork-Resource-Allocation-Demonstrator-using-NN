@@ -3,8 +3,8 @@ import random
 import pandas as pd
 import numpy as np
 
-from fairwork_rwth.demonstrator_ml.demonstrator_nn_v01 import processed_prediction
-from fairwork_rwth.utils.logger import log
+from rwth.demonstrator_ml.demonstrator_nn_v01 import processed_prediction
+from rwth.utils.logger import log
 
 from flask import Flask
 from flask_restx import Api, Resource, fields

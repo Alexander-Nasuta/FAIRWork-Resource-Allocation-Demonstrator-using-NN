@@ -4,7 +4,7 @@ import yaml
 import pprint
 import asyncio
 
-from fairwork_rwth.utils.logger import log
+from rwth.utils.logger import log
 from swagger_client import AuthorizationControllerApi, LoginRez
 
 log.info("setting up knowledge base...")

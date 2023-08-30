@@ -3,8 +3,8 @@ import shutil
 
 from rich.logging import RichHandler
 
-from fairwork_rwth.utils.wzl_banner import wzl_banner
-from fairwork_rwth.utils.fairwork_banner import banner_color as fairwork_banner
+from rwth.utils.wzl_banner import wzl_banner
+from rwth.utils.fairwork_banner import banner_color as fairwork_banner
 
 # print banner when logger is imported
 w, h = shutil.get_terminal_size((80, 20))

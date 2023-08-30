@@ -4,7 +4,7 @@ import uuid
 import pandas as pd
 import pathlib as pl
 import numpy as np
-from fairwork_rwth.utils.logger import log
+from rwth.utils.logger import log
 
 
 def generate_csv_files(

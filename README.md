@@ -43,6 +43,17 @@ For training with dummy data you can use the `data_preparation.py` script.
 It will generate a dataset with 100 .csv-files and save it to `resources/training-data/demonstrator-v01` directory.
 The .csv-files represent historic data.
 
+An example of a .csv-file is shown below:
+
+| ID   | Woker avaibale | Medical condtion | Efficiency on the line | Difficulty of the geometry | production priority | due date in days | UTE allocation | worker preference | final allocation |
+|------|----------------|------------------|------------------------|----------------------------|---------------------|------------------|----------------|-------------------|------------------|
+| 1000 | 1              | 0                | 0                      | 1                          | 0                   | 1                | 1              | 0.7               | 1                |
+| 1001 | 0              | 0                | 1                      | 1                          | 0                   | 1                | 0              | 0.0               | 0                |
+| ...  | ...            | ...              | ...                    | ...                        | ...                 | ...              | ...            | ...               | ...              |
+| 1159 | 1              | 1                | 0                      | 1                          | 0                   | 1                | 1              | 0.9               | 1                |
+
+The folder `resources/example-data` contains two examples of such a .csv-files.
+
 ### Training a model
 For training a model you can use the `demonstrator_nn_v01` script.
 It will train a model on the data in `resources/training-data/demonstrator-v01` directory and save the model to `resources/trained-models/model1.pt`.
@@ -125,6 +136,19 @@ which results in the following response:
 A 1 means that the worker with the corresponding ID is allocated to the task.
 The response has a value of 1 at the indexes `69`, `122`, `132`, `1151`, which correspond to workes `1069`, `1122`, `1132`, `1151`.
 This result means that the workers with the IDs `1069`, `1122`, `1132`, `1151`.
+
+## Swagger-UI
+
+The REST API endpoint is documented using Swagger-UI. 
+In the example case `http://127.0.0.1:5000/` will redirect to the Swagger-UI documentation.
+
+The Swagger-UI looks like this:
+![Swagger-UI-screenshot](resources/readme-content/swagger-ui.png)
+
+One can also test the API using the Swagger-UI and perform the same request as above:
+![Swagger-UI-screenshot](resources/readme-content/swagger-request.png)
+Which will yield the same response as above:
+![Swagger-UI-screenshot](resources/readme-content/swagger-response.png)
 
 ## Troubleshooting
 

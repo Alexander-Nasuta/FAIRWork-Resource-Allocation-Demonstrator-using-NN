@@ -7,10 +7,10 @@ import urllib
 
 from typing import List
 
-from fairwork_rwth.utils.logger import log
+from rwth.utils.logger import log
 
-from fairwork_rwth.knowledgebase.auth_controller import auth_context, credentials_dict
-from fairwork_rwth.knowledgebase.knowledga_base_config import config_dict
+from rwth.knowledgebase.auth_controller import auth_context, credentials_dict
+from rwth.knowledgebase.knowledga_base_config import config_dict
 from swagger_client import AdminControllerApi, ProjectInfo, SystemProjectInfo, BreakdownControllerApi, BreakdownInfo, \
     BreakdownElementInfo, BreakdownElementSearchResultInfo, BreakdownElementInfoWrapper, IFDControllerApi, StringResult
 from swagger_client.rest import ApiException

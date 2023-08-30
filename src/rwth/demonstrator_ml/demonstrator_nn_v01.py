@@ -7,7 +7,7 @@ import pandas as pd
 from torch import nn, optim
 from torch.utils.data import Dataset
 
-from fairwork_rwth.utils.logger import log
+from rwth.utils.logger import log
 
 
 class DemonstratorNeuralNet(nn.Module):
