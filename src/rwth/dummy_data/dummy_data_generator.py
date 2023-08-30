@@ -65,6 +65,12 @@ def generate_csv_files(
 
 
 if __name__ == '__main__':
+    # change working directory to the root of the project
+    import os
+
+    os.chdir(pl.Path(__file__).parent.parent.parent.parent)
+    log.info(f"working directory: {os.getcwd()}")
+
     log.info("make sure your working directory is the root of the project! "
              "PyCharm -> Edit configurations... -> Environment -> Working directory")
-    generate_csv_files(n_files=100)
+    generate_csv_files(n_files=1000)

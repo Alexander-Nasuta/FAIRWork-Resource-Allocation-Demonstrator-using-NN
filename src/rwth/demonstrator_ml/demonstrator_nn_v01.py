@@ -130,6 +130,15 @@ def processed_prediction(datapoint: np.ndarray, n_workers) -> np.ndarray:
     return y_pred
 
 
+def model_prediction(datapoint: np.ndarray) -> np.ndarray:
+    model = get_model()
+    # predict
+    y_pred = model(torch.from_numpy(datapoint).to(torch.float32))
+    # torch to numpy
+    y_pred = y_pred.detach().numpy()
+    return y_pred
+
+
 def prediction_example() -> None:
     # get random csv file from training-data directory
     files = pl.Path("./resources").joinpath("training-data").joinpath("demonstrator-v01").glob("*.csv")
@@ -158,6 +167,11 @@ def prediction_example() -> None:
 
 
 if __name__ == '__main__':
+    # change working directory to the root of the project
+    import os
+    os.chdir(pl.Path(__file__).parent.parent.parent.parent)
+    log.info(f"working directory: {os.getcwd()}")
+
     train_demonstrator_model(n_epochs=5)
     model = get_model()
     log.info(f"trained model: {model}, file: ./resources/trained-models/demonstrator-v01/model1.pt")
