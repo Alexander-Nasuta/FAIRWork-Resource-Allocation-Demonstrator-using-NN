@@ -106,13 +106,16 @@ def get_model() -> DemonstratorNeuralNet:
     # load model
 
     # list all .csv files in the training-data directory
-    data_dir_path = pl.Path("./resources").joinpath("training-data").joinpath("demonstrator-v01")
-    dataset = CustomDataset(data_directory=data_dir_path)
+    # data_dir_path = pl.Path("./resources").joinpath("training-data").joinpath("demonstrator-v01")
+    # dataset = CustomDataset(data_directory=data_dir_path)
+
+    x_dim = 1431
+    y_dim = 159
 
     model = DemonstratorNeuralNet(
-        input_dim=dataset.n_x_params,
+        input_dim=x_dim,
         hidden_dim=10,
-        output_dim=dataset.n_y_params
+        output_dim=y_dim
     )
     model.load_state_dict(torch.load("./resources/trained-models/demonstrator-v01/model1.pt"))
 
@@ -175,4 +178,4 @@ if __name__ == '__main__':
     train_demonstrator_model(n_epochs=5)
     model = get_model()
     log.info(f"trained model: {model}, file: ./resources/trained-models/demonstrator-v01/model1.pt")
-    prediction_example()
+    # prediction_example()
