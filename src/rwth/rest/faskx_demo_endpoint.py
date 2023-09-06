@@ -89,7 +89,7 @@ class DemonstratorNN(Resource):
 class DemonstratorMultipleAllocationsNN(Resource):
 
     @ns.doc('allocate_multi_workers')
-    @ns.expect([demonstrator_input_model])
+    @ns.expect([demonstrator_input_model_multi])
     @ns.marshal_list_with(demonstrator_multi_output_model)
     def post(self):
         """perform a prediction on the given input data. `num_workers` is the number of workers to allocate."""
@@ -112,7 +112,7 @@ class DemonstratorMultipleAllocationsNN(Resource):
         res = []
         allocated_workers = []
         for i, d in enumerate(data):
-            n_workers = d.pop("required-number-of-operators")
+            n_workers = d.pop("number-stevedors")
             df = pd.DataFrame({k: v for k, v in d.items() if k in input_fields})
             # set availability of already allocated workers to 0
             #for idx in allocated_workers:

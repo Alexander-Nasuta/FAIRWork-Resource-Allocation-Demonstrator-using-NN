@@ -206,7 +206,7 @@ suppose the application API is running on `http://127.0.0.1:5000` and you have t
     "required-number-of-operators": 6,
     "number-stevedors": 2,
     "weight": 7.7,
-    "type-of-part": "other meddle structiral parts",
+    "type-of-part": "other meddle structural parts",
     "pieces-per-container": 0,
     "mandatory": 1,
     "due-date": 3,
@@ -216,6 +216,8 @@ suppose the application API is running on `http://127.0.0.1:5000` and you have t
 ```
 
 Then you can query the model for predictions/allocations by sending a POST request to `http://127.0.0.1:5000/demonstrator-nn/`.
+Note that `"number-stevedors"` is the number of personal to allocate (and not `"required-number-of-operators"`). 
+That naming might be unintuitive, but it aligns with the process description.
 In the command line one can use the following command:
 
 ```
@@ -284,7 +286,7 @@ curl -X 'POST' \
     "required-number-of-operators": 6,
     "number-stevedors": 2,
     "weight": 7.7,
-    "type-of-part": "other meddle structiral parts",
+    "type-of-part": "other meddle structural parts",
     "pieces-per-container": 0,
     "mandatory": 1,
     "due-date": 3,
@@ -299,30 +301,20 @@ which results in the following response:
 [
   {
     "allocation": [
-      1047,
       1052,
-      1057,
+      1057
+    ]
+  },
+  {
+    "allocation": [
+      1047,
       1151
     ]
   },
   {
     "allocation": [
-      1025,
       1048,
-      1087,
-      1127,
-      1139,
-      1156
-    ]
-  },
-  {
-    "allocation": [
-      1017,
-      1039,
-      1066,
-      1090,
-      1141,
-      1158
+      1087
     ]
   }
 ]
@@ -346,6 +338,7 @@ Which will yield the same response as above:
 - make sure you provide the arrays of length 159 as input for the model (see above)
 - sure you are using the correct port (5000) and the correct endpoint (`/demonstrator-nn/`)
 - make sure the servers ip is accessible from your machine (you might need to check your VPN settings)
+- if you not marking the `src` folder as the source root folder (for example when working on a server), you might need to link the packages via pip. You can do this by running `pip install -e .` in the root folder of the project. This will install the packages in editable mode, so that changes to the source code will be reflected in the installed packages.
 
 
 # FAIRWork Project
