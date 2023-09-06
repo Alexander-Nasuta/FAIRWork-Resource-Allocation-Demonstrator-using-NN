@@ -9,6 +9,7 @@ from rwth.utils.logger import log
 
 from flask import Flask
 from flask_restx import Api, Resource, fields
+
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
