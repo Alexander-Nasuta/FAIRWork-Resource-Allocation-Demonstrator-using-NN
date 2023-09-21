@@ -122,12 +122,18 @@ def get_model() -> DemonstratorNeuralNet:
     return model
 
 
-def processed_prediction(datapoint: np.ndarray, n_workers) -> np.ndarray:
+def processed_prediction(datapoint: np.ndarray, n_workers, availability_mask: list[bool]) -> np.ndarray:
     model = get_model()
     # predict
     y_pred = model(torch.from_numpy(datapoint).to(torch.float32))
     # torch to numpy
     y_pred = y_pred.detach().numpy()
+    #
+    y_pred = np.array([
+        pred
+        for pred, available in zip(y_pred, availability_mask)
+    ])
+
     # set n_workers largest values to 1, rest to 0
     y_pred = np.array([1 if i in np.argpartition(y_pred, -n_workers)[-n_workers:] else 0 for i in range(len(y_pred))])
     return y_pred

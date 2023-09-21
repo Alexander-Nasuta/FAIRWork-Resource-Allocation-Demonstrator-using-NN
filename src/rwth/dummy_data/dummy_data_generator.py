@@ -44,7 +44,7 @@ def generate_csv_files(
 
         data = {
             "ID": [100_001 + i for i in range(n_workers)],
-            "Woker avaibale": w_availabilities,
+            "Worker avaibale": w_availabilities,
             "Medical condtion": [random.random() > 0.5 for _ in range(n_workers)],
             "Efficiency on the line": [random.random() > 0.5 for _ in range(n_workers)],
             "Difficulty of the geometry": [random.random() > 0.5 for _ in range(n_workers)],
